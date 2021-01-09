@@ -9,6 +9,7 @@ import com.example.appgithub.model.Item
 import com.example.appgithub.view.adapter.RepositoriesAdapter
 import com.example.appgithub.viewmodel.GitHubViewModel
 import androidx.lifecycle.Observer
+import androidx.recyclerview.widget.LinearLayoutManager
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
@@ -25,7 +26,7 @@ class MainActivity : AppCompatActivity() {
         initViews()
        // setupLoading()
 
-        repositorios.layoutManager = GridLayoutManager(this, 2)
+        repositorios.layoutManager = LinearLayoutManager(this)
 
         viewModel.getAllMovies()
 

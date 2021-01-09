@@ -40,9 +40,10 @@ class RepositoriesAdapter (var movieList: MutableList<Item>) :
 
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         fun onBind(item: Item) {
-            itemView.nome.text = item.name
-            itemView.textView2.text = item.full_name
-            //Picasso.get().load(movie.cover_url).error(R.drawable.sky).into(itemView.movieImage)
+            itemView.txtNomeRepositorio.text = item.name
+            itemView.ForksRepo.text = item.forks.toString()
+            itemView.txtNomeUsuario.text = item.owner.login
+            Picasso.get().load(item.owner.avatar_url).into(itemView.imgFotoPerfilPull)
         }
     }
 }

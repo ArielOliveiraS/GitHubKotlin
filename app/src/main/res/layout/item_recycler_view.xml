@@ -3,22 +3,131 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    android:layout_margin="10dp"
+    android:orientation="vertical">
 
     <TextView
-        android:id="@+id/nome"
-        android:layout_width="wrap_content"
+        android:id="@+id/txtNomeRepositorio"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="120dp"
         android:text="TextView"
+        android:textColor="@color/colorBlue"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toStartOf="@+id/imgFotoPerfilPull"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/textView2"
+        android:id="@+id/txtDescricao"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="120dp"
+        android:text="TextView"
+        android:maxLines="3"
+        android:textColor="@color/colorDarkGray"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toStartOf="@+id/imgFotoPerfilPull"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/txtNomeRepositorio" />
+
+    <TextView
+        android:id="@+id/ForksRepo"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="16dp"
         android:text="TextView"
+        android:textColor="@color/colorGold"
+        app:layout_constraintStart_toEndOf="@+id/imgFork"
+        app:layout_constraintTop_toBottomOf="@+id/txtDescricao" />
+
+    <TextView
+        android:id="@+id/numeroStars"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginBottom="8dp"
+        android:text="TextView"
+        android:textColor="@color/colorGold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/imgStar"
+        app:layout_constraintTop_toBottomOf="@+id/txtDescricao"
+        app:layout_constraintVertical_bias="0.0" />
+
+    <ImageView
+        android:id="@+id/imgFotoPerfilPull"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="16dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/txtNomeUsuario"
+        android:layout_width="96dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="11dp"
+        android:layout_marginEnd="16dp"
+        android:gravity="center"
+        android:text="TextView"
+        android:textColor="@color/colorBlue"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/imgFotoPerfilPull"
+        app:layout_constraintTop_toBottomOf="@+id/imgFotoPerfilPull" />
+
+    <TextView
+        android:id="@+id/txtNomeSobrenome"
+        android:layout_width="96dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="16dp"
+        android:text="nomeSobrenome"
+        android:textAlignment="center"
+        android:textSize="10sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/txtNomeUsuario"
+        app:layout_constraintTop_toBottomOf="@+id/txtNomeUsuario" />
+
+    <ImageView
+        android:id="@+id/imgFork"
+        android:layout_width="23dp"
+        android:layout_height="23dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/nome"
-        app:layout_constraintBottom_toBottomOf="parent"/>
+        app:layout_constraintTop_toBottomOf="@+id/txtDescricao"
+        android:src="@drawable/abc_vector_test" />
+
+    <ImageView
+        android:id="@+id/imgStar"
+        android:layout_width="23dp"
+        android:layout_height="23dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        app:layout_constraintStart_toEndOf="@+id/ForksRepo"
+        app:layout_constraintTop_toBottomOf="@+id/txtDescricao"
+        android:src="@drawable/ic_launcher_background" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:background="@color/colorGray"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="1.0" />
 </androidx.constraintlayout.widget.ConstraintLayout>
