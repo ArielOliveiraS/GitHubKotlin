@@ -13,9 +13,6 @@ import org.mockito.Mock
 import org.mockito.Mockito
 import org.mockito.MockitoAnnotations
 
-/**
- * Created by arieloliveira on 11/01/21 for AppGitHub.
- */
 class GitHubViewModelTest {
 
     @Rule
@@ -51,17 +48,17 @@ class GitHubViewModelTest {
         var items = GitHubResponse(1, false, arrayListOf())
         listItems.subscribe { result -> items = result }
 
-        Mockito.`when`(repositoryViewcontract.getRepositories()).thenReturn(listItems)
+        Mockito.`when`(repositoryViewcontract.getRepositories(1)).thenReturn(listItems)
         Mockito.doNothing().`when`(viewModelSpy).setItemList(items)
         Mockito.doNothing().`when`(viewModelSpy).setLoading(ArgumentMatchers.anyBoolean())
 
         //Act
-        viewModelSpy.getAllRepositories()
+        viewModelSpy.getAllRepositories(1)
 
         //Assert
-        Mockito.verify(viewModelSpy, Mockito.times(1)).getAllRepositories()
-        Mockito.verify(viewModelSpy, Mockito.never()).logError(ArgumentMatchers.anyString())
-        Mockito.verify(repositoryViewcontract, Mockito.times(1)).getRepositories()
+        Mockito.verify(viewModelSpy, Mockito.times(1)).getAllRepositories(1)
+        Mockito.verify(viewModelSpy, Mockito.never()).setError(false)
+        Mockito.verify(repositoryViewcontract, Mockito.times(1)).getRepositories(1)
         Mockito.verify(viewModelSpy, Mockito.times(1)).setLoading(true)
         Mockito.verify(viewModelSpy, Mockito.times(1)).setLoading(false)
         Mockito.verify(viewModelSpy, Mockito.times(1)).setItemList(items)
@@ -74,20 +71,20 @@ class GitHubViewModelTest {
         val throwable = Throwable(errorMessage)
         val viewModelSpy = Mockito.spy(viewModel)
 
-        Mockito.`when`(repositoryViewcontract.getRepositories()).thenReturn(Single.error(throwable))
+        Mockito.`when`(repositoryViewcontract.getRepositories(1)).thenReturn(Single.error(throwable))
         Mockito.doNothing().`when`(viewModelSpy).setLoading(ArgumentMatchers.anyBoolean())
-        Mockito.doNothing().`when`(viewModelSpy).logError(errorMessage)
+        Mockito.doNothing().`when`(viewModelSpy).setError(false)
 
         //Act
-        viewModelSpy.getAllRepositories()
+        viewModelSpy.getAllRepositories(1)
 
         //Assert
-        Mockito.verify(viewModelSpy, Mockito.times(1)).getAllRepositories()
+        Mockito.verify(viewModelSpy, Mockito.times(1)).getAllRepositories(1)
         Mockito.verify(viewModelSpy, Mockito.never()).setItemList(ArgumentMatchers.any())
-        Mockito.verify(repositoryViewcontract, Mockito.times(1)).getRepositories()
+        Mockito.verify(repositoryViewcontract, Mockito.times(1)).getRepositories(1)
         Mockito.verify(viewModelSpy, Mockito.times(1)).setLoading(true)
         Mockito.verify(viewModelSpy, Mockito.times(1)).setLoading(false)
-        Mockito.verify(viewModelSpy, Mockito.times(1)).logError(errorMessage)
+        Mockito.verify(viewModelSpy, Mockito.times(1)).setError(true)
     }
 
     @Test
