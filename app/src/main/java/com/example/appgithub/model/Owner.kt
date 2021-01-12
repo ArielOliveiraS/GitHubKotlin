@@ -1,11 +1,11 @@
 package com.example.appgithub.model
 
-
-/**
- * Created by arieloliveira on 08/01/21 for AppGitHub.
- */
+import android.os.Parcelable
+import kotlinx.android.parcel.Parcelize
+@Parcelize
 class Owner(
     val avatar_url: String,
-    val id: Int,
-    val login: String
-)
+    val login: String,
+    val followers_url: String,
+    val following_url: String
+): Parcelable

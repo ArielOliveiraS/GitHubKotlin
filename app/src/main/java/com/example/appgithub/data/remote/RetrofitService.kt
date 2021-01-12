@@ -7,10 +7,6 @@ import retrofit2.Retrofit
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory
 
-/**
- * Created by arieloliveira on 08/01/21 for AppGitHub.
- */
-
 class RetrofitService {
     companion object {
         val service: GitHubApi

@@ -14,9 +14,9 @@ import io.reactivex.schedulers.Schedulers
  * Created by arieloliveira on 08/01/21 for AppGitHub.
  */
 class GitHubViewModel (private val repository: RepositoryViewContract) : ViewModel() {
-    private val movieList: MutableLiveData<GitHubResponse> = MutableLiveData()
+    private val repositoriesList: MutableLiveData<GitHubResponse> = MutableLiveData()
 
-    val repositorytResult: LiveData<GitHubResponse> = movieList
+    val repositorytResult: LiveData<GitHubResponse> = repositoriesList
 
     private val loading: MutableLiveData<Boolean> = MutableLiveData()
     val loadingResult: LiveData<Boolean> = loading
@@ -41,7 +41,7 @@ class GitHubViewModel (private val repository: RepositoryViewContract) : ViewMod
     }
 
     fun setItemList(it: GitHubResponse?) {
-        movieList.value = it
+        repositoriesList.value = it
     }
 
     fun setLoading(value: Boolean) {

@@ -1,6 +1,7 @@
-package com.example.appgithub.view.activity
+package com.example.appgithub.view.main.activity
 
 import android.animation.ObjectAnimator
+import android.content.Intent
 import android.content.res.ColorStateList
 import android.graphics.Color
 import android.os.Bundle
@@ -12,20 +13,21 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.appgithub.R
 import com.example.appgithub.model.Item
-import com.example.appgithub.view.adapter.RepositoriesAdapter
+import com.example.appgithub.view.main.adapter.RepositoriesAdapter
+import com.example.appgithub.view.detail.activity.DetailActivity
+import com.example.appgithub.view.main.interfaces.ClickViewContract
 import com.example.appgithub.viewmodel.GitHubViewModel
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.generic_error.*
 
-class MainActivity() : AppCompatActivity() {
+class MainActivity() : AppCompatActivity(), ClickViewContract {
 
     private val list = mutableListOf<Item>()
-    private val adapter = RepositoriesAdapter(list)
+    private val adapter = RepositoriesAdapter(list, this)
     private lateinit var viewModel: GitHubViewModel
     private val factory = GitHubViewModel.Factory()
 
     var page = 1
-
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -64,7 +66,7 @@ class MainActivity() : AppCompatActivity() {
         })
     }
 
-    fun setupLoading() {
+    private fun setupLoading() {
         val colorProgress = Color.parseColor("#CAC8C3")
         viewModel.loadingResult.observe(this, Observer {
             if (it) {
@@ -76,7 +78,7 @@ class MainActivity() : AppCompatActivity() {
         })
     }
 
-    fun setupError() {
+    private fun setupError() {
         viewModel.errorResult.observe(this, Observer {
             if (it) {
                 genericErrorView.visibility = View.VISIBLE
@@ -103,9 +105,9 @@ class MainActivity() : AppCompatActivity() {
         rotation.start()
     }
 
-//    override fun onMovieClicked(movieResult: MovieResponse) {
-//        val intent = Intent(this, MovieDetailsActivity::class.java)
-//        intent.putExtra("movie", movieResult)
-//        startActivity(intent)
-//    }
+    override fun onClick(result: Item) {
+        val intent = Intent(this, DetailActivity::class.java)
+        intent.putExtra("result", result)
+        startActivity(intent)
+    }
 }
