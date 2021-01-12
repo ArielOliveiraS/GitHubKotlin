@@ -1,6 +1,5 @@
 package com.example.appgithub.viewmodel
 
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -17,22 +16,26 @@ import io.reactivex.schedulers.Schedulers
 class GitHubViewModel (private val repository: RepositoryViewContract) : ViewModel() {
     private val movieList: MutableLiveData<GitHubResponse> = MutableLiveData()
 
-    val movieListResult: LiveData<GitHubResponse> = movieList
+    val repositorytResult: LiveData<GitHubResponse> = movieList
 
     private val loading: MutableLiveData<Boolean> = MutableLiveData()
     val loadingResult: LiveData<Boolean> = loading
 
-    fun getAllMovies() {
-        repository.getRepositories()
+    private val genericError: MutableLiveData<Boolean> = MutableLiveData()
+    val errorResult: LiveData<Boolean> = genericError
+
+    fun getAllRepositories(page: Int) {
+        repository.getRepositories(page)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .doOnSubscribe { setLoading(true) }
             .doAfterTerminate { setLoading(false) }
             .subscribe({
                 setItemList(it)
+                setError(false)
             }, { throwable ->
                 Throwable(throwable)
-                logError(throwable.message)
+                setError(true)
             })
 
     }
@@ -45,8 +48,8 @@ class GitHubViewModel (private val repository: RepositoryViewContract) : ViewMod
         loading.value = value
     }
 
-    fun logError(message: String?) {
-        Log.i("LOG", "erro $message")
+    fun setError(error: Boolean) {
+        genericError.value = error
     }
 
     class Factory: ViewModelProvider.Factory {

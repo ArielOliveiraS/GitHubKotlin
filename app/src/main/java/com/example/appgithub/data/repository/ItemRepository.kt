@@ -9,5 +9,5 @@ import io.reactivex.Single
  */
 
 class ItemRepository : RepositoryViewContract {
-    override fun getRepositories(): Single<GitHubResponse> = service.getAllRepositories()
+    override fun getRepositories(page: Int): Single<GitHubResponse> = service.getAllRepositories(page)
 }

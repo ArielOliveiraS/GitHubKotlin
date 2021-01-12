@@ -8,5 +8,5 @@ import io.reactivex.Single
  */
 
 interface RepositoryViewContract {
-    fun getRepositories(): Single<GitHubResponse>
+    fun getRepositories(page: Int): Single<GitHubResponse>
 }
