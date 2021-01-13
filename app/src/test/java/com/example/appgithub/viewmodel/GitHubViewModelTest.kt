@@ -29,19 +29,13 @@ class GitHubViewModelTest {
 
     @Before
     fun setUp() {
-        RxAndroidPlugins.setInitMainThreadSchedulerHandler({ Schedulers.trampoline()})
+        RxAndroidPlugins.setInitMainThreadSchedulerHandler { Schedulers.trampoline()}
         MockitoAnnotations.initMocks(this)
         viewModel = instantiateViewModel()
     }
 
-    @After
-    fun tearDown() {
-        Mockito.verifyNoMoreInteractions(repositoryViewcontract, repositories)
-    }
-
-
     @Test
-    fun test_getAllMovies_success() {
+    fun test_getAllRepos_success() {
         //Given
         val viewModelSpy = Mockito.spy(viewModel)
         val listItems = Single.just(GitHubResponse(1, false, arrayListOf()))
@@ -57,15 +51,15 @@ class GitHubViewModelTest {
 
         //Assert
         Mockito.verify(viewModelSpy, Mockito.times(1)).getAllRepositories(1)
-        Mockito.verify(viewModelSpy, Mockito.never()).setError(false)
         Mockito.verify(repositoryViewcontract, Mockito.times(1)).getRepositories(1)
         Mockito.verify(viewModelSpy, Mockito.times(1)).setLoading(true)
         Mockito.verify(viewModelSpy, Mockito.times(1)).setLoading(false)
         Mockito.verify(viewModelSpy, Mockito.times(1)).setItemList(items)
+        Mockito.verify(viewModelSpy, Mockito.times(1)).setError(false)
     }
 
     @Test
-    fun test_getAllMovies_error() {
+    fun test_getAllRepos_error() {
         //Given
         val errorMessage = "Error Message"
         val throwable = Throwable(errorMessage)
@@ -73,7 +67,6 @@ class GitHubViewModelTest {
 
         Mockito.`when`(repositoryViewcontract.getRepositories(1)).thenReturn(Single.error(throwable))
         Mockito.doNothing().`when`(viewModelSpy).setLoading(ArgumentMatchers.anyBoolean())
-        Mockito.doNothing().`when`(viewModelSpy).setError(false)
 
         //Act
         viewModelSpy.getAllRepositories(1)
@@ -101,9 +94,12 @@ class GitHubViewModelTest {
         Assert.assertTrue(viewModel.loadingResult.value ?: false)
     }
 
-
     private fun instantiateViewModel(): GitHubViewModel {
-        val viewModel = GitHubViewModel(repositoryViewcontract)
-        return viewModel
+        return GitHubViewModel(repositoryViewcontract) //chamando o mock ao inicializar o view model
+    }
+
+    @After
+    fun tearDown() {
+        Mockito.verifyNoMoreInteractions(repositoryViewcontract, repositories) //verifica interaçoes dos mocks
     }
 }
